@@ -21,8 +21,10 @@ var defaultSSE = staticValue(null)
 var defaultSSEKMS = staticValue(null)
 
 function defaultKey (req, file, cb) {
+  const hex = raw.toString('hex')
+  const path = req.params.folder ? `${req.params.folder}/${hex}` : hex
   crypto.randomBytes(16, function (err, raw) {
-    cb(err, err ? undefined : raw.toString('hex'))
+    cb(err, err ? undefined : path)
   })
 }
 
